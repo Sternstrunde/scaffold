@@ -1,0 +1,26 @@
+{
+  "name": "@long-cli-dev/log",
+  "version": "1.0.0",
+  "description": "long-cli-dev log",
+  "author": "Sternstrunde <1878856344@qq.com>",
+  "homepage": "https://github.com/Sternstrunde/scaffold#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sternstrunde/scaffold.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/log.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/Sternstrunde/scaffold/issues"
+  }
+}

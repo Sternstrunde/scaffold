@@ -1,0 +1,21 @@
+{
+  "name": "scaffold",
+  "version": "1.0.0",
+  "description": "自己设计脚手架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lerna": "^8.1.2"
+  },
+  "workspaces": [
+    "core/*",
+    "commands/*",
+    "models/*",
+    "utils/*"
+  ]
+}
