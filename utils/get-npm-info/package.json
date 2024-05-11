@@ -1,5 +1,5 @@
 {
-  "name": "@long-cli-dev/get-npm-info",
+  "name": "@test-cli-dev/get-npm-info",
   "version": "1.0.0",
   "description": "get npm info",
   "author": "Sternstrunde <1878856344@qq.com>",

@@ -1,7 +1,7 @@
 {
-  "name": "@long-cli-dev/log",
+  "name": "@test-cli-dev/log",
   "version": "1.0.0",
-  "description": "long-cli-dev log",
+  "description": "test-cli-dev log",
   "author": "Sternstrunde <1878856344@qq.com>",
   "homepage": "https://github.com/Sternstrunde/scaffold#readme",
   "license": "ISC",
@@ -22,5 +22,8 @@
   },
   "bugs": {
     "url": "https://github.com/Sternstrunde/scaffold/issues"
+  },
+  "dependencies": {
+    "npmlog": "^7.0.1"
   }
 }
