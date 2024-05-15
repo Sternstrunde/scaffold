@@ -11,6 +11,7 @@ const contant = require("./contant");
 const pkg = require("../package.json");
 const fs = require("fs");
 const fsPromises = require("fs/promises");
+const path = require("path");
 let args, config;
 
 function core() {
@@ -19,15 +20,43 @@ function core() {
     checkNodeVersion();
     checkUserHome();
     checkInputArgs();
+    checkEnv();
   } catch (e) {
     log.error(e.message);
   }
 }
 
+function checkEnv() {
+  const dotenv = require("dotenv");
+  const dotenvPath = path.resolve(userHome, ".env");
+  if (pathExists(dotenvPath)) {
+    config = dotenv.config({
+      path: dotenvPath,
+    });
+  }
+
+  createDefaultConfig();
+
+  log.verbose("环境变量", process.env.CLI_HOME_PATH);
+}
+
+function createDefaultConfig() {
+  const cliConfig = {
+    home: userHome,
+  };
+  if (process.env.CLI_HOME) {
+    cliConfig["cliHome"] = path.join(userHome, process.env.CLI_HOME);
+  } else {
+    cliConfig["cliHome"] = path.join(userHome, contant.DEFAULT_CLI_HOME);
+  }
+  process.env.CLI_HOME_PATH = cliConfig.cliHome;
+  console.log(process.env.CLI_HOME_PATH);
+}
+
 function checkInputArgs() {
   const minimist = require("minimist");
   args = minimist(process.argv.slice(2));
-  console.log(args);
+  // console.log(args);
   checkArgs();
 }
 

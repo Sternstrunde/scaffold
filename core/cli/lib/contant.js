@@ -3,4 +3,5 @@ const DEFAULT_CLI_HOME = "loong-cli";
 
 module.exports = {
   LOWEST_NODE_VERSION,
+  DEFAULT_CLI_HOME,
 };
