@@ -3,6 +3,7 @@
 module.exports = core;
 
 const log = require("@test-cli-dev/log");
+const { getNpmSemverVersion } = require("@test-cli-dev/get-npm-info");
 const semver = require("semver");
 const colors = require("colors/safe");
 const userHome = require("user-home");
@@ -14,15 +15,32 @@ const fsPromises = require("fs/promises");
 const path = require("path");
 let args, config;
 
-function core() {
+async function core() {
   try {
     checkPkgVersion();
     checkNodeVersion();
     checkUserHome();
     checkInputArgs();
     checkEnv();
+    await checkGlobalUpdate();
   } catch (e) {
     log.error(e.message);
+  }
+}
+
+async function checkGlobalUpdate() {
+  const currentVersion = pkg.version;
+  const npmName = pkg.name;
+  const lastVersion = await getNpmSemverVersion(npmName, currentVersion);
+  if (lastVersion && semver.gt(lastVersion, currentVersion)) {
+    log.warn(
+      "更新提示",
+      colors.yellow(
+        `请手动更新${npmName}，当前版本：${currentVersion}，最新版本：${lastVersion}
+      更新命令：npm install -g ${npmName}
+    `
+      )
+    );
   }
 }
 
@@ -50,7 +68,7 @@ function createDefaultConfig() {
     cliConfig["cliHome"] = path.join(userHome, contant.DEFAULT_CLI_HOME);
   }
   process.env.CLI_HOME_PATH = cliConfig.cliHome;
-  console.log(process.env.CLI_HOME_PATH);
+  // console.log(process.env.CLI_HOME_PATH);
 }
 
 function checkInputArgs() {
@@ -74,7 +92,7 @@ function checkUserHome() {
   if (!userHome || !pathExistsSync(userHome)) {
     throw new Error(colors.red("当前登录用户主目录不存在!"));
   }
-  console.log(userHome);
+  // console.log(userHome);
 }
 
 async function pathExists(path) {
