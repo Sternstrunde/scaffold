@@ -7,6 +7,7 @@ const { getNpmSemverVersion } = require("@test-cli-dev/get-npm-info");
 const semver = require("semver");
 const colors = require("colors/safe");
 const userHome = require("user-home");
+const commander = require("commander");
 
 const contant = require("./contant");
 const pkg = require("../package.json");
@@ -15,16 +16,52 @@ const fsPromises = require("fs/promises");
 const path = require("path");
 let args, config;
 
+const program = new commander.Command();
+
 async function core() {
   try {
-    checkPkgVersion();
-    checkNodeVersion();
-    checkUserHome();
-    checkInputArgs();
-    checkEnv();
-    await checkGlobalUpdate();
+    prepare();
+    registerCommand();
   } catch (e) {
     log.error(e.message);
+  }
+}
+
+function prepare() {
+  checkPkgVersion();
+  checkNodeVersion();
+  checkUserHome();
+  // checkInputArgs();
+  checkEnv();
+  // await checkGlobalUpdate();
+}
+
+// 脚手架初始化+全局参数注册
+function registerCommand() {
+  program
+    .name(Object.keys(pkg.bin)[0])
+    .usage("<command> [options]")
+    .version(pkg.version)
+    .option("-d,--debug", "是否开启调试模式", false)
+    .option("-tp,--targetPath", "是否指定本地调试文件路径", "");
+
+  program.on("option:debug", function () {
+    if (program.opts().debug) {
+      process.env.LOG_LEVEL = "verbose";
+    } else {
+      process.env.LOG_LEVEL = "info";
+    }
+    log.level = process.env.LOG_LEVEL;
+  });
+  program.on("option:targetPath", function () {
+    console.log(program.opts().targetPath);
+    process.env.CLI_TARGET_PATH = program.opts().targetPath;
+  });
+
+  program.parse(process.argv);
+  if (program.args && program.args.length < 1) {
+    program.outputHelp(); // 打印出帮助文档
+    console.log();
   }
 }
 
