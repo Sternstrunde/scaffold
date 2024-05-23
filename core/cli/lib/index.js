@@ -8,6 +8,7 @@ const semver = require("semver");
 const colors = require("colors/safe");
 const userHome = require("user-home");
 const commander = require("commander");
+const init = require("@test-cli-dev/init");
 
 const contant = require("./contant");
 const pkg = require("../package.json");
@@ -45,6 +46,12 @@ function registerCommand() {
     .option("-d,--debug", "是否开启调试模式", false)
     .option("-tp,--targetPath", "是否指定本地调试文件路径", "");
 
+  // 脚手架命令注册
+  program
+    .command("init [projectName]")
+    .option("-f,--force", "是否强制初始化项目")
+    .action(init);
+
   program.on("option:debug", function () {
     if (program.opts().debug) {
       process.env.LOG_LEVEL = "verbose";
@@ -56,6 +63,15 @@ function registerCommand() {
   program.on("option:targetPath", function () {
     console.log(program.opts().targetPath);
     process.env.CLI_TARGET_PATH = program.opts().targetPath;
+  });
+
+  // 对没有匹配的命令进行监听
+  program.on("command:*", function (obj) {
+    const availableCommands = program.commands.map((cmd) => cmd.name());
+    console.log(colors.red("未知的命令：" + obj[0]));
+    if (availableCommands.length > 0) {
+      console.log(colors.red("可用的命令：" + availableCommands.join(",")));
+    }
   });
 
   program.parse(process.argv);
