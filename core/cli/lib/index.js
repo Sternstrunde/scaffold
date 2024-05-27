@@ -9,6 +9,7 @@ const colors = require("colors/safe");
 const userHome = require("user-home");
 const commander = require("commander");
 const init = require("@test-cli-dev/init");
+const exec = require("@test-cli-dev/exec");
 
 const contant = require("./contant");
 const pkg = require("../package.json");
@@ -44,13 +45,13 @@ function registerCommand() {
     .usage("<command> [options]")
     .version(pkg.version)
     .option("-d,--debug", "是否开启调试模式", false)
-    .option("-tp,--targetPath", "是否指定本地调试文件路径", "");
+    .option("-tp,--targetPath <targetPath>", "是否指定本地调试文件路径", "");
 
   // 脚手架命令注册
   program
     .command("init [projectName]")
     .option("-f,--force", "是否强制初始化项目")
-    .action(init);
+    .action(exec);
 
   program.on("option:debug", function () {
     if (program.opts().debug) {
@@ -61,7 +62,7 @@ function registerCommand() {
     log.level = process.env.LOG_LEVEL;
   });
   program.on("option:targetPath", function () {
-    console.log(program.opts().targetPath);
+    // console.log(program.opts().targetPath);
     process.env.CLI_TARGET_PATH = program.opts().targetPath;
   });
 
