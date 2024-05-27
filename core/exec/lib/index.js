@@ -2,6 +2,10 @@
 
 module.exports = exec;
 
+const Package = require("@test-cli-dev/package");
+
 function exec() {
-  console.log(process.env.CLI_TARGET_PATH);
+  const pkg = new Package();
+
+  console.log(pkg);
 }
