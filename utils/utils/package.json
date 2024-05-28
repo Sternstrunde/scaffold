@@ -1,7 +1,7 @@
 {
-  "name": "@test-cli-dev/exec",
+  "name": "@test-cli-dev/utils",
   "version": "1.0.0",
-  "description": "test-cli-dev execute package",
+  "description": "test-cli-dev utils",
   "author": "Sternstrunde <1878856344@qq.com>",
   "homepage": "https://github.com/Sternstrunde/scaffold#readme",
   "license": "ISC",
@@ -21,13 +21,9 @@
     "url": "git+https://github.com/Sternstrunde/scaffold.git"
   },
   "scripts": {
-    "test": "node ./__tests__/@test-cli-dev/exec.test.js"
+    "test": "node ./__tests__/@test-cli-dev/utils.test.js"
   },
   "bugs": {
     "url": "https://github.com/Sternstrunde/scaffold/issues"
-  },
-  "dependencies": {
-    "@test-cli-dev/package": "file:../../models/Package",
-    "@test-cli-dev/log": "file:../../utils/log"
   }
 }

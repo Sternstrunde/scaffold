@@ -25,5 +25,8 @@
   },
   "bugs": {
     "url": "https://github.com/Sternstrunde/scaffold/issues"
+  },
+  "dependencies": {
+    "@test-cli-dev/utils": "file:../../utils/utils"
   }
 }
