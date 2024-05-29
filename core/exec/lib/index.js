@@ -9,8 +9,8 @@ const SETTINGS = {
   init: "@imooc-cli/init",
 };
 
-function exec() {
-  const targetPath = process.env.CLI_TARGET_PATH;
+async function exec() {
+  let targetPath = process.env.CLI_TARGET_PATH;
   const homePath = process.env.CLI_HOME_PATH;
   log.verbose("targetPath", targetPath);
   log.verbose("homePath", homePath);
@@ -20,11 +20,17 @@ function exec() {
   const cmdName = cmdObj.name();
   const packageName = SETTINGS[cmdName];
   const packgeVersion = "latest";
+
+  if (!targetPath) {
+    targetPath = ""; // 生存缓存路径
+  }
+
   const pkg = new Package({
     targetPath,
     packageName,
     packgeVersion,
   });
 
-  console.log(pkg);
+  const result = await pkg.getRootFilePath();
+  console.log(result);
 }

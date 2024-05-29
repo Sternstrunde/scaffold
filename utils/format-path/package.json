@@ -1,7 +1,7 @@
 {
-  "name": "@test-cli-dev/package",
+  "name": "@test-cli-dev/format-path",
   "version": "1.0.0",
-  "description": "test-cli-dev npm package",
+  "description": "format path",
   "author": "Sternstrunde <1878856344@qq.com>",
   "homepage": "https://github.com/Sternstrunde/scaffold#readme",
   "license": "ISC",
@@ -21,13 +21,9 @@
     "url": "git+https://github.com/Sternstrunde/scaffold.git"
   },
   "scripts": {
-    "test": "node ./__tests__/@test-cli-dev/package.test.js"
+    "test": "node ./__tests__/@test-cli-dev/format-path.test.js"
   },
   "bugs": {
     "url": "https://github.com/Sternstrunde/scaffold/issues"
-  },
-  "dependencies": {
-    "@test-cli-dev/utils": "file:../../utils/utils",
-    "@test-cli-dev/format-path": "file:../../utils/format-path"
   }
 }
